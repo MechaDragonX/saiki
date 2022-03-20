@@ -1,12 +1,40 @@
 #!/usr/bin/env python
 
-from typing import TypeVar, Generic
 from node import Node
 
-T = TypeVar('T')
-
-# Type probably refers to the chars in the case of strings, since each node contains a char
-class Trie(Generic[T]):
+class Trie():
     def __init__(self, value):
-        self.head = Node(value, False, True)
-        self.next = None
+        self.__head = Node(value, False, True)
+        self.__children = []
+    
+
+    def __add_new_start_letter(self, start_index, value):
+        if len(value) == 0:
+            self.__children.append(Node(value[0], True, False))
+        else:
+            self.__children.append(Node(value[0], False, False))
+
+        current = self.__children[start_index]
+        for i in range(1, len(value)):
+            current.getChildren().append(Node(value[i], False, False))
+            current = current.getChildren()
+
+
+    def add(self, value):
+        # Only applies if there are already starting letters present
+        add_letter = False
+        start_index = 0
+
+        if len(self.__children) == 0:
+            self.__add_new_start_letter(0, value)
+
+        else:
+            for i in range(0, len(self.__children)):
+                if self.__children[i] == value[0]:
+                    add_letter = False
+                    start_index = i
+
+            if add_letter == True:
+                self.__add_new_start_letter(len(self.__children), value)
+            else:
+                self.__append_to_start(start_index, value)

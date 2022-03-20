@@ -1,13 +1,26 @@
 #!/usr/bin/env python
 
-from typing import TypeVar, Generic
-
-T = TypeVar('T')
-
-# Type probably refers to the chars in the case of strings, since each node contains a char
-class Node(Generic[T]):
+class Node():
     def __init__(self, value, isTerminal, isHead):
-        self.value = value
-        self.isTerminal = isTerminal
+        self.__value = value
+        self.__isHead = isHead
         if isHead:
             self.value = '@'
+        self.__isTerminal = isTerminal
+        if isTerminal:
+            self.value = '*'
+        self.__children = []
+
+
+
+    def getChildren(self) -> list:
+        return self.__children
+
+
+
+    def getFirstChild(self):
+        return self.__children[0]
+
+
+    # def addToChildren(self, value):
+    #     self.__children.append(value)
