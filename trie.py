@@ -16,8 +16,9 @@ class Trie():
 
         current = self.__children[start_index]
         for i in range(1, len(value)):
-            current.getChildren().append(Node(value[i], False, False))
-            current = current.getChildren()
+            current.get_children().append(Node(value[i], False, False))
+            current = current.get_children()
+
 
 
     def add(self, value):
