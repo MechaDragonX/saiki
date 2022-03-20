@@ -13,12 +13,12 @@ class Node():
 
 
 
-    def getChildren(self) -> list:
+    def get_children(self) -> list:
         return self.__children
 
 
 
-    def getFirstChild(self):
+    def get_first_child(self):
         return self.__children[0]
 
 
